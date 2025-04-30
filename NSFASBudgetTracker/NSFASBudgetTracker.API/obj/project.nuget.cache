@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "M5CoryD7jWQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Lehlonolo\\Desktop\\NSFAS-Budget-Tracker\\NSFAS-Budget-Tracker\\NSFASBudgetTracker\\NSFASBudgetTracker.API\\NSFASBudgetTracker.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.0-preview.2.25164.1\\microsoft.aspnetcore.openapi.10.0.0-preview.2.25164.1.nupkg.sha512",
+    "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.openapi\\2.0.0-preview7\\microsoft.openapi.2.0.0-preview7.nupkg.sha512"
+  ],
+  "logs": []
+}
