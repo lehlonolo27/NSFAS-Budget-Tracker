@@ -21,8 +21,4 @@
     <ProjectReference Include="..\NSFASBudgetTracker.Infrastructure\NSFASBudgetTracker.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
