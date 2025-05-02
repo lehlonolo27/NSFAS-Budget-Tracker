@@ -28,6 +28,18 @@
         </InputSelect>
     </div>
 
+    <div class="mb-3">
+        <label>Category:</label>
+        <InputSelect @bind-Value="newExpense.CategoryId" class="form-control">
+            <option value="">-- Select Category --</option>
+            @foreach (var c in categories)
+            {
+            <option value="@c.Id">@c.Name</option>
+            }
+        </InputSelect>
+    </div>
+
+
     <button type="submit" class="btn btn-success">Add Expense</button>
 </EditForm>
 
@@ -47,9 +59,13 @@ else
         @foreach (var e in expenses)
         {
             var budgetName = budgets.FirstOrDefault(b => b.Id == e.BudgetId)?.Name;
+            var categoryName = categories.FirstOrDefault(c => c.Id == e.CategoryId)?.Name;
+
             <li class="list-group-item">
-                <strong>@e.Description</strong> - R@e.Amount (Budget: @budgetName)
+              <strong>@e.Description</strong> - R@e.Amount
+              (Budget: @budgetName, Category: @categoryName)
             </li>
+
         }
     </ul>
 }
@@ -57,12 +73,15 @@ else
 @code {
     private List<Expense> expenses;
     private List<Budget> budgets;
+    private List<Category> categories;
+
     private Expense newExpense = new();
 
     protected override async Task OnInitializedAsync()
     {
         await LoadBudgets();
         await LoadExpenses();
+        await LoadCategories();
     }
 
     private async Task LoadBudgets()
@@ -74,7 +93,10 @@ else
     {
         expenses = await Http.GetFromJsonAsync<List<Expense>>("api/expense");
     }
-
+    private async Task LoadCategories()
+    {
+        categories = await Http.GetFromJsonAsync<List<Category>>("api/category");
+    }
     private async Task AddExpense()
     {
         var response = await Http.PostAsJsonAsync("api/expense", newExpense);
@@ -90,11 +112,11 @@ else
     }
 
     public class Expense
-    {
-        public int Id { get; set; }
-        public string Description { get; set; }
-        public decimal Amount { get; set; }
-        public int BudgetId { get; set; }
+    {public int Id { get; set; }
+    public string Description { get; set; }
+    public decimal Amount { get; set; }
+    public int BudgetId { get; set; }
+    public int CategoryId { get; set; }
     }
 
     public class Budget
@@ -102,4 +124,11 @@ else
         public int Id { get; set; }
         public string Name { get; set; }
     }
+
+    public class Category
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
 }
