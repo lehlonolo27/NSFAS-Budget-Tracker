@@ -1,0 +1,71 @@
+@page "/categories"
+@inject HttpClient Http
+
+<h3>Expense Categories</h3>
+
+<EditForm Model="newCategory" OnValidSubmit="AddCategory">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Name:</label>
+        <InputText @bind-Value="newCategory.Name" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Category</button>
+</EditForm>
+
+<hr />
+
+@if (categories == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!categories.Any())
+{
+    <p>No categories found.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var category in categories)
+        {
+            <li class="list-group-item">@category.Name</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Category> categories;
+    private Category newCategory = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCategories();
+    }
+
+    private async Task LoadCategories()
+    {
+        categories = await Http.GetFromJsonAsync<List<Category>>("api/category");
+    }
+
+    private async Task AddCategory()
+    {
+        var response = await Http.PostAsJsonAsync("api/category", newCategory);
+        if (response.IsSuccessStatusCode)
+        {
+            newCategory = new();
+            await LoadCategories();
+        }
+        else
+        {
+            // Handle error
+        }
+    }
+
+    public class Category
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+}
