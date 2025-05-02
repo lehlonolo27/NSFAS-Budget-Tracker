@@ -1,9 +1,11 @@
 @page "/expenses"
 @inject HttpClient Http
+@inject IJSRuntime JS
+
 
 <h3>Expenses</h3>
 
-<EditForm Model="newExpense" OnValidSubmit="AddExpense">
+<EditForm Model="newExpense" OnValidSubmit="SaveExpense">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -61,12 +63,18 @@ else
             var budgetName = budgets.FirstOrDefault(b => b.Id == e.BudgetId)?.Name;
             var categoryName = categories.FirstOrDefault(c => c.Id == e.CategoryId)?.Name;
 
-            <li class="list-group-item">
-              <strong>@e.Description</strong> - R@e.Amount
-              (Budget: @budgetName, Category: @categoryName)
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>@e.Description</strong> - R@e.Amount
+                    (Budget: @budgetName, Category: @categoryName)
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-secondary me-1" @onclick="() => EditExpense(e)">Edit</button>
+                    <button class="btn btn-sm btn-danger" @onclick="() => DeleteExpense(e.Id)">Delete</button>
+                </div>
             </li>
+       }
 
-        }
     </ul>
 }
 
@@ -74,6 +82,8 @@ else
     private List<Expense> expenses;
     private List<Budget> budgets;
     private List<Category> categories;
+    private bool isEditing = false;
+    private int editingExpenseId = 0;
 
     private Expense newExpense = new();
 
@@ -82,6 +92,30 @@ else
         await LoadBudgets();
         await LoadExpenses();
         await LoadCategories();
+    }
+    private void EditExpense(Expense e)
+    {
+            newExpense = new Expense
+            {
+                Id = e.Id,
+                Description = e.Description,
+                Amount = e.Amount,
+                BudgetId = e.BudgetId,
+                CategoryId = e.CategoryId
+            };
+            isEditing = true;
+            editingExpenseId = e.Id;
+   }
+   private async Task DeleteExpense(int id)
+   {
+        var confirmed = await JS.InvokeAsync<bool>("confirm", "Are you sure you want to delete this expense?");
+        if (!confirmed) return;
+
+        var response = await Http.DeleteAsync($"api/expense/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            await LoadExpenses();
+        }
     }
 
     private async Task LoadBudgets()
@@ -97,17 +131,29 @@ else
     {
         categories = await Http.GetFromJsonAsync<List<Category>>("api/category");
     }
-    private async Task AddExpense()
+    private async Task SaveExpense()
     {
-        var response = await Http.PostAsJsonAsync("api/expense", newExpense);
-        if (response.IsSuccessStatusCode)
+        HttpResponseMessage response;
+
+        if (isEditing)
         {
-            newExpense = new(); // clear form
-            await LoadExpenses(); // reload list
+            response = await Http.PutAsJsonAsync($"api/expense/{newExpense.Id}", newExpense);
         }
         else
         {
-            // Handle errors here if needed
+            response = await Http.PostAsJsonAsync("api/expense", newExpense);
+        }
+
+        if (response.IsSuccessStatusCode)
+        {
+            newExpense = new Expense();
+            isEditing = false;
+            editingExpenseId = 0;
+            await LoadExpenses();
+        }
+        else
+        {
+            // Handle error
         }
     }
 
