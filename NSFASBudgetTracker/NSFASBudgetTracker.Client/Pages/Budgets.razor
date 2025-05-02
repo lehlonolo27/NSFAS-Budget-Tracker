@@ -3,6 +3,25 @@
 
 <h3>Budgets</h3>
 
+<EditForm Model="newBudget" OnValidSubmit="CreateBudget">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Name:</label>
+        <InputText @bind-Value="newBudget.Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Amount (ZAR):</label>
+        <InputNumber @bind-Value="newBudget.Amount" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Budget</button>
+</EditForm>
+
+<hr />
+
 @if (budgets == null)
 {
     <p><em>Loading...</em></p>
@@ -13,20 +32,40 @@ else if (!budgets.Any())
 }
 else
 {
-    <ul>
+    <ul class="list-group">
         @foreach (var budget in budgets)
         {
-            <li>@budget.Name - R@budget.Amount</li>
+            <li class="list-group-item">@budget.Name - R@budget.Amount</li>
         }
     </ul>
 }
 
 @code {
     private List<Budget> budgets;
+    private Budget newBudget = new();
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadBudgets();
+    }
+
+    private async Task LoadBudgets()
+    {
         budgets = await Http.GetFromJsonAsync<List<Budget>>("api/budget");
+    }
+
+    private async Task CreateBudget()
+    {
+        var response = await Http.PostAsJsonAsync("api/budget", newBudget);
+        if (response.IsSuccessStatusCode)
+        {
+            newBudget = new(); // clear form
+            await LoadBudgets(); // reload list
+        }
+        else
+        {
+            // Handle errors (e.g. show a toast or message)
+        }
     }
 
     public class Budget

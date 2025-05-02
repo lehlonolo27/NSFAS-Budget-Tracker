@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NSFASBudgetTracker.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f08996a100f17c51d2001b59245183948442922f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97a05b2648a98203efacfb8c447ec259f49af2f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("NSFASBudgetTracker.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NSFASBudgetTracker.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
