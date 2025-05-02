@@ -1,0 +1,105 @@
+@page "/expenses"
+@inject HttpClient Http
+
+<h3>Expenses</h3>
+
+<EditForm Model="newExpense" OnValidSubmit="AddExpense">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Description:</label>
+        <InputText @bind-Value="newExpense.Description" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Amount (ZAR):</label>
+        <InputNumber @bind-Value="newExpense.Amount" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Budget:</label>
+        <InputSelect @bind-Value="newExpense.BudgetId" class="form-control">
+            <option value="">-- Select Budget --</option>
+            @foreach (var b in budgets)
+            {
+                <option value="@b.Id">@b.Name</option>
+            }
+        </InputSelect>
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Expense</button>
+</EditForm>
+
+<hr />
+
+@if (expenses == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!expenses.Any())
+{
+    <p>No expenses found.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var e in expenses)
+        {
+            var budgetName = budgets.FirstOrDefault(b => b.Id == e.BudgetId)?.Name;
+            <li class="list-group-item">
+                <strong>@e.Description</strong> - R@e.Amount (Budget: @budgetName)
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Expense> expenses;
+    private List<Budget> budgets;
+    private Expense newExpense = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBudgets();
+        await LoadExpenses();
+    }
+
+    private async Task LoadBudgets()
+    {
+        budgets = await Http.GetFromJsonAsync<List<Budget>>("api/budget");
+    }
+
+    private async Task LoadExpenses()
+    {
+        expenses = await Http.GetFromJsonAsync<List<Expense>>("api/expense");
+    }
+
+    private async Task AddExpense()
+    {
+        var response = await Http.PostAsJsonAsync("api/expense", newExpense);
+        if (response.IsSuccessStatusCode)
+        {
+            newExpense = new(); // clear form
+            await LoadExpenses(); // reload list
+        }
+        else
+        {
+            // Handle errors here if needed
+        }
+    }
+
+    public class Expense
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public decimal Amount { get; set; }
+        public int BudgetId { get; set; }
+    }
+
+    public class Budget
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+}
