@@ -1,9 +1,11 @@
 @page "/budgets"
 @inject HttpClient Http
+@inject IJSRuntime JS
+
 
 <h3>Budgets</h3>
 
-<EditForm Model="newBudget" OnValidSubmit="CreateBudget">
+<EditForm Model="newBudget" OnValidSubmit="SaveBudget">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -35,14 +37,49 @@ else
     <ul class="list-group">
         @foreach (var budget in budgets)
         {
-            <li class="list-group-item">@budget.Name - R@budget.Amount</li>
-        }
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>@budget.Name</strong> - R@budget.Limit
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-secondary me-1" @onclick="() => EditBudget(budget)">Edit</button>
+                    <button class="btn btn-sm btn-danger" @onclick="() => DeleteBudget(budget.Id)">Delete</button>
+                </div>
+            </li>
+       }
+
     </ul>
 }
 
 @code {
     private List<Budget> budgets;
     private Budget newBudget = new();
+    private bool isEditing = false;
+    private int editingBudgetId = 0;
+    private void EditBudget(Budget b)
+    {
+        newBudget = new Budget
+        {
+            Id = b.Id,
+            Name = b.Name,
+            Amount = b.Amount
+        };
+        isEditing = true;
+        editingBudgetId = b.Id;
+    }
+
+    private async Task DeleteBudget(int id)
+    {
+        var confirmed = await JS.InvokeAsync<bool>("confirm", "Deleting a budget may also remove related expenses. Continue?");
+        if (!confirmed) return;
+
+        var response = await Http.DeleteAsync($"api/budget/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            await LoadBudgets();
+        }
+    }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -54,20 +91,28 @@ else
         budgets = await Http.GetFromJsonAsync<List<Budget>>("api/budget");
     }
 
-    private async Task CreateBudget()
+    private async Task SaveBudget()
     {
-        var response = await Http.PostAsJsonAsync("api/budget", newBudget);
-        if (response.IsSuccessStatusCode)
+        HttpResponseMessage response;
+
+        if (isEditing)
         {
-            newBudget = new(); // clear form
-            await LoadBudgets(); // reload list
+            response = await Http.PutAsJsonAsync($"api/budget/{newBudget.Id}", newBudget);
         }
         else
         {
-            // Handle errors (e.g. show a toast or message)
+            response = await Http.PostAsJsonAsync("api/budget", newBudget);
+        }
+
+        if (response.IsSuccessStatusCode)
+        {
+            newBudget = new Budget();
+            isEditing = false;
+            editingBudgetId = 0;
+            await LoadBudgets();
         }
     }
-
+    
     public class Budget
     {
         public int Id { get; set; }
