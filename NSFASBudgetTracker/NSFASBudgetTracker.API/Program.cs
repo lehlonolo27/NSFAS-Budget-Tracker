@@ -2,7 +2,7 @@ using NSFASBudgetTracker.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using NSFASBudgetTracker.Core.Interfaces;
 using NSFASBudgetTracker.Infrastructure.Repositories;
-
+using NSFASBudgetTracker.Infrastructure.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+builder.Services.AddScoped<IBudgetService, BudgetService>();
+
 
 
 var app = builder.Build();
