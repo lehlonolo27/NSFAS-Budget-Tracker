@@ -1,9 +1,10 @@
 @page "/categories"
 @inject HttpClient Http
+@inject IJSRuntime JS
 
 <h3>Expense Categories</h3>
 
-<EditForm Model="newCategory" OnValidSubmit="AddCategory">
+<EditForm Model="newCategory" OnValidSubmit="SaveCategory">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -29,15 +30,26 @@ else
 {
     <ul class="list-group">
         @foreach (var category in categories)
-        {
-            <li class="list-group-item">@category.Name</li>
-        }
+{
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+            <strong>@category.Name</strong> - @category.Description
+        </div>
+        <div>
+            <button class="btn btn-sm btn-secondary me-1" @onclick="() => EditCategory(category)">Edit</button>
+            <button class="btn btn-sm btn-danger" @onclick="() => DeleteCategory(category.Id)">Delete</button>
+        </div>
+    </li>
+}
+
     </ul>
 }
 
 @code {
     private List<Category> categories;
     private Category newCategory = new();
+    private bool isEditing = false;
+    private int editingCategoryId = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,17 +61,48 @@ else
         categories = await Http.GetFromJsonAsync<List<Category>>("api/category");
     }
 
-    private async Task AddCategory()
+    private async Task SaveCategory()
     {
-        var response = await Http.PostAsJsonAsync("api/category", newCategory);
-        if (response.IsSuccessStatusCode)
+        HttpResponseMessage response;
+
+        if (isEditing)
         {
-            newCategory = new();
-            await LoadCategories();
+            response = await Http.PutAsJsonAsync($"api/category/{newCategory.Id}", newCategory);
         }
         else
         {
-            // Handle error
+            response = await Http.PostAsJsonAsync("api/category", newCategory);
+        }
+
+        if (response.IsSuccessStatusCode)
+        {
+            newCategory = new Category();
+            isEditing = false;
+            editingCategoryId = 0;
+            await LoadCategories();
+        }
+    }
+    private void EditCategory(Category c)
+    {
+        newCategory = new Category
+        {
+            Id = c.Id,
+            Name = c.Name,
+            Description = c.Description
+        };
+        isEditing = true;
+        editingCategoryId = c.Id;
+    }
+
+    private async Task DeleteCategory(int id)
+    {
+        var confirmed = await JS.InvokeAsync<bool>("confirm", "Are you sure you want to delete this category?");
+        if (!confirmed) return;
+
+        var response = await Http.DeleteAsync($"api/category/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            await LoadCategories();
         }
     }
 
@@ -67,5 +110,6 @@ else
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
