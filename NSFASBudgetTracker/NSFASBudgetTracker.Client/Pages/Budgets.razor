@@ -1,0 +1,38 @@
+@page "/budgets"
+@inject HttpClient Http
+
+<h3>Budgets</h3>
+
+@if (budgets == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!budgets.Any())
+{
+    <p>No budgets found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var budget in budgets)
+        {
+            <li>@budget.Name - R@budget.Amount</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Budget> budgets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        budgets = await Http.GetFromJsonAsync<List<Budget>>("api/budget");
+    }
+
+    public class Budget
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Amount { get; set; }
+    }
+}
