@@ -5,11 +5,16 @@ using NSFASBudgetTracker.Infrastructure.Repositories;
 using NSFASBudgetTracker.Infrastructure.Services;
 using System.Text; // Added for Encoding.UTF8
 using Microsoft.IdentityModel.Tokens;
+using Blazored.LocalStorage;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddScoped<AuthService>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
