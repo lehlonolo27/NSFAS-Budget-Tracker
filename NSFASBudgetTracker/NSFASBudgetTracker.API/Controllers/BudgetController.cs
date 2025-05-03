@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using NSFASBudgetTracker.Core.Entities;
 using NSFASBudgetTracker.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace NSFASBudgetTracker.API;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize] // Ensure that the user is authenticated before accessing this controller
 public class BudgetController: ControllerBase
 {
 private readonly IBudgetService _budgetService;
