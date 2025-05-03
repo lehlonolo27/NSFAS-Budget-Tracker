@@ -55,16 +55,15 @@ This app fills that gap with an easy-to-use, mobile-friendly budgeting solution 
 
 ---
 
-### Backend API Setup
+### Backend API Setup & Frontend Blazor Setup
 
-```bash
 cd NsfBudgetTracker.API
 dotnet restore
 dotnet ef database update
 dotnet run
----
+
 ### Frontend Blazor Setup
-````bash
+bash
 cd NsfBudgetTracker.Client
 dotnet restore
 dotnet run
