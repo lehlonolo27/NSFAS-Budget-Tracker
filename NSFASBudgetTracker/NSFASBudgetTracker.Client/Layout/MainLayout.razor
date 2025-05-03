@@ -1,16 +1,31 @@
-﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+﻿@inject AuthService Auth
+@inject NavigationManager Nav
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+<div class="top-bar">
+    @if (!string.IsNullOrEmpty(CurrentUser))
+    {
+        <p>Welcome, @CurrentUser!</p>
+        <button @onclick="Logout">Logout</button>
+    }
+    else
+    {
+        <NavLink href="/login">Login</NavLink>
+        <NavLink href="/register">Register</NavLink>
+    }
 </div>
+
+@code {
+    private string CurrentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUser = await Auth.GetUsername();
+    }
+
+    private async Task Logout()
+    {
+        await Auth.Logout();
+        CurrentUser = null;
+        Nav.NavigateTo("/login", forceLoad: true);
+    }
+}
