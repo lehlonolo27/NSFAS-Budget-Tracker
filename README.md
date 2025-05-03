@@ -67,36 +67,35 @@ This app fills that gap with an easy-to-use, mobile-friendly budgeting solution 
 - cd NSFASBudgetTracker.Client
 - dotnet restore
 - dotnet run
+## 🧠 How the App Works
 
-🧠 How the App Works
+- 🔐 Register or log in as a student.
 
-🔐 Register or log in as a student.
+- 💸 Input your monthly NSFAS allowance.
 
-💸 Input your monthly NSFAS allowance.
+- 🧾 Add budget entries by category (e.g., Food, Transport).
 
-🧾 Add budget entries by category (e.g., Food, Transport).
+- 🌡️ App will display your spending health (green/yellow/red).
 
-🌡️ App will display your spending health (green/yellow/red).
+- 🔔 If overspending, you’ll get a mock SMS alert.
 
-🔔 If overspending, you’ll get a mock SMS alert.
+- 💻 Even without data/internet, recent data is cached locally.
+## 🔮 Future Improvements
 
-💻 Even without data/internet, recent data is cached locally.
+- 📈 Budget trend analytics (month-to-month comparison)
 
-🔮 Future Improvements
-📈 Budget trend analytics (month-to-month comparison)
+- 💳 Support for bank statement uploads or NSFAS API (if available)
 
-💳 Support for bank statement uploads or NSFAS API (if available)
+- 🧪 Unit tests and e2e testing (Playwright or bUnit)
 
-🧪 Unit tests and e2e testing (Playwright or bUnit)
+- 📱 Convert to PWA for installable mobile experience
+## 🌍 Why It Stands Out
 
-📱 Convert to PWA for installable mobile experience
+- 🎯 Built specifically for South African students receiving NSFAS funding
 
-🌍 Why It Stands Out
-🎯 Built specifically for South African students receiving NSFAS funding
+- 🛡️ Uses secure modern web stack (ASP.NET Core + Blazor)
 
-🛡️ Uses secure modern web stack (ASP.NET Core + Blazor)
+- 💡 Focused on financial literacy and responsible allowance use
 
-💡 Focused on financial literacy and responsible allowance use
-
-🆓 100% free and accessible
+- 🆓 100% free and accessible
 
