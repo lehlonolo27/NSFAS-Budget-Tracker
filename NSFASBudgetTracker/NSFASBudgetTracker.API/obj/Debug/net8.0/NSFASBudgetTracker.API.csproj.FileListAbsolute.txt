@@ -171,3 +171,6 @@ C:\Users\Lehlonolo\Desktop\NSFAS-Budget-Tracker\NSFAS-Budget-Tracker\NSFASBudget
 C:\Users\Lehlonolo\Desktop\NSFAS-Budget-Tracker\NSFAS-Budget-Tracker\NSFASBudgetTracker\NSFASBudgetTracker.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Lehlonolo\Desktop\NSFAS-Budget-Tracker\NSFAS-Budget-Tracker\NSFASBudgetTracker\NSFASBudgetTracker.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Lehlonolo\Desktop\NSFAS-Budget-Tracker\NSFAS-Budget-Tracker\NSFASBudgetTracker\NSFASBudgetTracker.API\obj\Debug\net8.0\NSFASBudgetTracker.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Lehlonolo\Desktop\NSFAS-Budget-Tracker\NSFAS-Budget-Tracker\NSFASBudgetTracker\NSFASBudgetTracker.API\bin\Debug\net8.0\Blazored.LocalStorage.dll
+C:\Users\Lehlonolo\Desktop\NSFAS-Budget-Tracker\NSFAS-Budget-Tracker\NSFASBudgetTracker\NSFASBudgetTracker.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Lehlonolo\Desktop\NSFAS-Budget-Tracker\NSFAS-Budget-Tracker\NSFASBudgetTracker\NSFASBudgetTracker.API\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll

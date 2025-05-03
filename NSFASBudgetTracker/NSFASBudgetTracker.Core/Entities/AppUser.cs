@@ -5,8 +5,8 @@ namespace NSFASBudgetTracker.Core.Entities;
 public class AppUser
 {
     public int Id { get; set; }
-    public string Username { get; set; }
-    public byte[] PasswordHash { get; set; }
-    public byte[] PasswordSalt { get; set; }
+    public required string Username { get; set; }
+    public required byte[] PasswordHash { get; set; }
+    public required byte[] PasswordSalt { get; set; }
 
 }
