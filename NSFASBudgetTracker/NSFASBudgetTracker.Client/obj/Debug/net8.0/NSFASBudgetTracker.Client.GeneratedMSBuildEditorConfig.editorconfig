@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmllcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Lehlonolo/Desktop/NSFAS-Budget-Tracker/NSFAS-Budget-Tracker/NSFASBudgetTracker/NSFASBudgetTracker.Client/Pages/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Lehlonolo/Desktop/NSFAS-Budget-Tracker/NSFAS-Budget-Tracker/NSFASBudgetTracker/NSFASBudgetTracker.Client/Pages/Expenses.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXhwZW5zZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

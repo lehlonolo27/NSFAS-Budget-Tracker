@@ -1,0 +1,52 @@
+@page "/dashboard"
+@inject HttpClient Http
+@inject IJSRuntime JS
+<h3>Dashboard</h3>
+
+@if (summary == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Total Budget vs Expenses</h5>
+            <canvas id="budgetChart"></canvas>
+        </div>
+
+        <div class="col-md-6">
+            <h5>Spending by Category</h5>
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+}
+
+@code {
+    private SummaryData summary;
+
+    protected override async Task OnInitializedAsync()
+    {
+        summary = await Http.GetFromJsonAsync<SummaryData>("api/dashboard");
+        await LoadCharts();
+    }
+
+    private async Task LoadCharts()
+    {
+        await JS.InvokeVoidAsync("drawBudgetChart", summary.TotalBudget, summary.TotalExpenses);
+        await JS.InvokeVoidAsync("drawCategoryChart", summary.CategorySummaries);
+    }
+
+    public class SummaryData
+    {
+        public decimal TotalBudget { get; set; }
+        public decimal TotalExpenses { get; set; }
+        public List<CategorySummary> CategorySummaries { get; set; } = new();
+    }
+
+    public class CategorySummary
+    {
+        public string Category { get; set; }
+        public decimal Amount { get; set; }
+    }
+}

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "D2TfyohMvx8=",
+  "dgSpecHash": "B3DfV9KmcUQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\Lehlonolo\\Desktop\\NSFAS-Budget-Tracker\\NSFAS-Budget-Tracker\\NSFASBudgetTracker\\NSFASBudgetTracker.Client\\NSFASBudgetTracker.Client.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Lehlonolo\\.nuget\\packages\\chartjs.blazor.fork\\2.0.2\\chartjs.blazor.fork.2.0.2.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.15\\microsoft.aspnetcore.authorization.8.0.15.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.15\\microsoft.aspnetcore.components.8.0.15.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\8.0.15\\microsoft.aspnetcore.components.analyzers.8.0.15.nupkg.sha512",
@@ -12,6 +13,7 @@
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly\\8.0.15\\microsoft.aspnetcore.components.webassembly.8.0.15.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.devserver\\8.0.15\\microsoft.aspnetcore.components.webassembly.devserver.8.0.15.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.aspnetcore.metadata\\8.0.15\\microsoft.aspnetcore.metadata.8.0.15.nupkg.sha512",
+    "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.extensions.configuration.binder\\8.0.2\\microsoft.extensions.configuration.binder.8.0.2.nupkg.sha512",
@@ -30,6 +32,7 @@
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.jsinterop.webassembly\\8.0.15\\microsoft.jsinterop.webassembly.8.0.15.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.15\\microsoft.net.illink.tasks.8.0.15.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\8.0.15\\microsoft.net.sdk.webassembly.pack.8.0.15.nupkg.sha512",
+    "C:\\Users\\Lehlonolo\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512",
     "C:\\Users\\Lehlonolo\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.15\\microsoft.netcore.app.runtime.mono.browser-wasm.8.0.15.nupkg.sha512"
   ],
