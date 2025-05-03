@@ -57,18 +57,18 @@ This app fills that gap with an easy-to-use, mobile-friendly budgeting solution 
 
 ### Backend API Setup & Frontend Blazor Setup
 
-cd NsfBudgetTracker.API
+cd NSFASBudgetTracker.API
 dotnet restore
 dotnet ef database update
 dotnet run
 
 ### Frontend Blazor Setup
 bash
-cd NsfBudgetTracker.Client
+cd NSFASBudgetTracker.Client
 dotnet restore
 dotnet run
 
-###🧠 How the App Works
+🧠 How the App Works
 
 🔐 Register or log in as a student.
 
@@ -82,7 +82,7 @@ dotnet run
 
 💻 Even without data/internet, recent data is cached locally.
 
-###🔮 Future Improvements
+🔮 Future Improvements
 📈 Budget trend analytics (month-to-month comparison)
 
 💳 Support for bank statement uploads or NSFAS API (if available)
@@ -91,7 +91,7 @@ dotnet run
 
 📱 Convert to PWA for installable mobile experience
 
-###🌍 Why It Stands Out
+🌍 Why It Stands Out
 🎯 Built specifically for South African students receiving NSFAS funding
 
 🛡️ Uses secure modern web stack (ASP.NET Core + Blazor)
